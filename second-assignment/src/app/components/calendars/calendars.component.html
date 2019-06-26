@@ -1,0 +1,9 @@
+<div>
+    {{title}}
+</div>
+<input type="text" #dp="bsDatepicker" bsDatepicker (bsValueChange)="selectDay($event)">
+<button class="calendar-button" (click)="dp.toggle()">
+    <img src="../../../assets/images/calendar.svg">
+<!--    <i class="far fa-calendar-alt fa-2x i-display"></i>-->
+</button>
+

@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
+
+.block-ui-wrapper.active {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-dialog {
+    max-width: 600px !important;
+}

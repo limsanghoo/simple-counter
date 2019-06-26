@@ -1,0 +1,33 @@
+
+    <div class="container">
+        <form [formGroup]="modalForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col">
+                    <label>Return Reason</label>
+                    <button type="button" class="close d-flex justify-content-end" (click)="modalClose()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="required">Reason  ({{modalForm.get('reason').value.length}}/1000)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <textarea rows="5" type="text" class="form-control textarea-control" formControlName="reason" maxlength="1000"></textarea>
+                    <div class="required-position" *ngIf="modalForm.get('reason').invalid">
+                        <small *ngIf="modalForm.get('reason').errors?.required" class="text-danger">Required</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row modal-button-main">
+                <div class="col-12 d-flex justify-content-end">
+                    <button class="btn btn-primary" [disabled]="modalForm.invalid" (click)="sendReason()">OK</button>
+                    <button class="btn btn-primary" (click)="modalClose()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+

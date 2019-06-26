@@ -1,0 +1,21 @@
+button.btn-primary {
+    min-width: 100px;
+    margin-left: 5px;
+}
+
+label.required:not(:empty):after{
+    content: " *";
+    color: red;
+}
+
+textarea {
+    width: 100%;
+}
+
+.required-position {
+    position: absolute;
+}
+
+.modal-button-main {
+    margin-top: 1rem;
+}

@@ -1,0 +1,47 @@
+<div class="jumbotron">
+    <button type="button" class="close d-flex justify-content-end" (click)="modalClose()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-4 title">
+            <label>{{title}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p><strong>CutOffDate Value</strong></p>
+
+            <input type="text" readonly value="{{msg.cutOffDate | date: 'yyyy/MM/dd'}}">
+
+        </div>
+        <div class="col-6">
+            <p><strong>ExecuteOnDate Value</strong></p>
+            <input type="text" readonly value="{{msg.executeOnDate | date: 'yyyy/MM/dd'}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p>Accessibility</p>
+            <input type="text" readonly value="{{msg.accessibility}}">
+        </div>
+        <div class="col-6">
+            <p>State</p>
+            <input type="text" readonly value="{{msg.state}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+        <p>ReturnReason</p>
+        <textarea type="text" readonly value="{{msg.returnReason}}"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-success" (click)="modalClose()">Close</button>
+        </div>
+    </div>
+</div>
+</div>
