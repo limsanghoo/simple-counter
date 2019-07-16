@@ -2,9 +2,13 @@
 @import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
 
 .block-ui-wrapper.active {
+    position: absolute !important;
     display: flex !important;
     justify-content: center;
     align-items: center;
+}
+.block-ui-wrapper {
+    background: rgba(0, 0,0, 0.20) !important;
 }
 
 .modal-dialog {
