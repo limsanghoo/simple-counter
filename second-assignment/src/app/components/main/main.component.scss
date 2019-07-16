@@ -19,19 +19,22 @@ input[type=checkbox] {
     margin-left: 10px;
 }
 
-
+textarea {
+    resize: none;
+}
 .container {
     border: solid 2px darkblue;
     width: 600px;
+    position: relative;
 
 }
 
-.return-reason-control {
+/*.return-reason-control {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+}*/
 
 .return-reason-control textarea {
     width: 100%;
@@ -39,10 +42,13 @@ input[type=checkbox] {
     border-radius: 8px;
 }
 
+/*
 .button-group {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 1rem;
 }
+*/
 
 .checkbox-display {
     padding-left: 5px;
@@ -60,4 +66,5 @@ input[type=checkbox] {
 div.row {
     margin-left: 0;
     margin-right: 0;
+    //margin : 2px;
 }
