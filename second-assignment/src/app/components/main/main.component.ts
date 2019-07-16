@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { CommentComponent } from '../common/dialog/comment/comment.component';
 import { AlertComponent } from '../common/dialog/alert/alert.component';
-import { CommunicationService } from '../../services/communication.service';
 import { DataService } from '../../services/data.service';
 import { take } from 'rxjs/operators';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { CalendarsComponent } from '../calendars/calendars.component';
 
 @Component({
   selector: 'app-main',
@@ -24,10 +24,22 @@ export class MainComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: BsModalService,
-                private communicationService: CommunicationService,
                 private dataService: DataService,
+                private calendar: CalendarsComponent,
                 private bsModalRef: BsModalRef) {
 
+    }
+
+    get accessibility() {
+        return this.mainForm.get('accessibility');
+    }
+
+    get state() {
+        return this.mainForm.get('state');
+    }
+
+    get cutOffDate() {
+        return this.mainForm.get('cutOffDate');
     }
 
     ngOnInit() {
@@ -38,7 +50,7 @@ export class MainComponent implements OnInit {
             state : ['', Validators.required],
             returnReason : [''],
         });
-
+        /* BlockUI 시작 및 Data.json 로드 */
         this.blockUI.start();
         setTimeout( () => {
         this.dataService.getJSON().then(res => {
@@ -49,18 +61,19 @@ export class MainComponent implements OnInit {
             this.blockUI.stop();
         });
         }, 1000);
-
+        /* 초기값으로 state 창 disable 설정 및 state value change 구독 */
         this.state.disable();
         this.state.valueChanges.subscribe(selectedStateName => {
             console.log(selectedStateName);
-/*            this.dataService.getJSON().then( res => {
-                this.stateValue = res.lookup.filter(obj => obj.NAME == stateValue);
-                console.log(this.stateValue);
-            }).catch( err => {
-                console.log("error", err);
-            });*/
-            // 이미 로드한 data.json이 states에 들어있으므로 또다시 dateService를 이용해서 필터링 할 이유가 없음.
             this.selectedState = this.states.filter(state => state.NAME == selectedStateName)[0];
+        });
+        /* Accessibility 해지 시 다시 select 으로 변경 */
+        this.accessibility.valueChanges.subscribe( changeAccessibility => {
+            console.log(changeAccessibility);
+             if (changeAccessibility == false) {
+                 // this.selectedState = '';
+                 this.state.patchValue("");
+             }
         });
     }
 
@@ -100,14 +113,14 @@ export class MainComponent implements OnInit {
                     title: 'Alert Modal',
                     msg: this.mainForm.getRawValue()
             };
-        this.bsModalRef = this.modalService.show(AlertComponent, {initialState, animated: true, keyboard: true, ignoreBackdropClick: true, class: "modal-dialog-centered modal-lg"});
+        this.bsModalRef = this.modalService.show(AlertComponent, {initialState, animated: true, keyboard: true, ignoreBackdropClick: true, class: "modal-dialog-centered"});
     }
-
+    /* Accessibility 값에 따라 select 창 상태 변경 */
     checkStatus() {
         console.log("checkStatus 진입확인");
         console.log("value 값 :" + this.accessibility.value);
         if (this.mainForm.get('accessibility').value == true) {
-             this.mainForm.get('state').disable();
+             this.state.disable();
         } else if ( this.accessibility.value == false ) {
              this.state.enable();
         }
@@ -119,15 +132,12 @@ export class MainComponent implements OnInit {
     }
 
     resetValue() {
-        this.mainForm.reset();
+        this.state.patchValue("");
+        this.state.disable();
+        this.accessibility.patchValue(false);
         this.mainForm.get('returnReason').patchValue('');
-    }
-
-    get accessibility() {
-        return this.mainForm.get('accessibility');
-    }
-
-    get state() {
-        return this.mainForm.get('state');
+        this.mainForm.get('executeOnDate').patchValue('');
+        this.mainForm.get('cutOffDate').patchValue('');
+        this.calendar.childDate = "";
     }
 }

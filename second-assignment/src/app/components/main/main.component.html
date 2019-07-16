@@ -1,9 +1,9 @@
-<!--{{mainForm.value|json}}-->
+{{mainForm.value|json}}
 <div class="vh-100">
     <div class="row h-100 justify-content-center align-content-center">
-        <div class="container">
+        <div class="container pl-0 pr-0">
             <block-ui></block-ui>
-            <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="mainForm" class="m-2" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="col-6 form-group">
                         <app-calendars (dataChange)="onDateChange($event)" name="component1" title="Prune Cutoff Date"></app-calendars>
@@ -41,13 +41,13 @@
                     <div class="col-12">
                         <label>Return Reason({{mainForm.get('returnReason').value.length}}/1000)</label>
                     </div>
-                    <div class="col-12 return-reason-control form-group">
+                    <div class="col-12 justify-content-center align-items-center form-group">
                         <textarea rows="5" type="text" class=form-control formControlName="returnReason" readonly></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"></div>
-                    <div class="col-6 button-group">
+                    <div class="col-6 d-flex justify-content-end mb-1">
                         <button class="btn btn-primary" (click)="showReturnReason()">Return</button>
                         <button class="btn btn-primary" [disabled]="!mainForm.valid" (click)="showFormValue()">Submit</button>
                         <button class="btn btn-primary" (click)="resetValue()"> Cancel</button>
