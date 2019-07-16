@@ -21,5 +21,6 @@ describe('MainComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    console.log("git test")
   });
 });
